@@ -43,3 +43,15 @@ POST BODY:
   "kafkaBroker" : "localhost:9092"
 }
 ```
+
+Moving the offsets to the earliest available offset for timestamp
+```
+POST localhost:8082/kafka-offset-manager/time-based-offset
+POST BODY:
+{
+  "consumerGroupId" : "consumer1",
+  "topic": "test",
+  "kafkaBroker" : "localhost:9092",
+  "timeStampInMillis": "23123123123"
+}
+```

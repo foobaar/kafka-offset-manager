@@ -4,12 +4,16 @@ import com.foobaar.kafka.offset.manager.dao.OffSetChangeRequest;
 import com.foobaar.kafka.offset.manager.dao.PartitionOffset;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndTimestamp;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.consumer.internals.NoOpConsumerRebalanceListener;
+import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.stereotype.Component;
@@ -73,6 +77,28 @@ public class KafkaOffsetService {
       consumer.close();
     }
     return "Offset moved to: " + position;
+  }
+
+  public String changeOffsetBasedOnTimeStamp(OffSetChangeRequest req) {
+    KafkaConsumer<String, String> consumer = null;
+    try {
+      consumer = getConsumer(req);
+      List<PartitionInfo> partitionInfo = consumer.partitionsFor(req.getTopic());
+      Map<TopicPartition, Long> timeStampsToSearch = partitionInfo.stream()
+          .map(x -> new TopicPartition(x.topic(), x.partition())).collect(Collectors.toMap(
+              Function.identity(), x -> req.getTimeStampInMillis()));
+      Map<TopicPartition, OffsetAndTimestamp> offSetsForTimes = consumer
+          .offsetsForTimes(timeStampsToSearch);
+      Map<TopicPartition, OffsetAndMetadata> offsets = new HashMap<>();
+      offSetsForTimes.entrySet().stream()
+          .forEach(x -> offsets.put(x.getKey(), new OffsetAndMetadata(x.getValue().offset())));
+      consumer.commitSync(offsets);
+    } catch (Exception e) {
+      return e.getMessage();
+    } finally {
+      consumer.close();
+    }
+    return "Offset moved to timestamp: " + req.getTimeStampInMillis();
   }
 
   private KafkaConsumer<String, String> getConsumer(OffSetChangeRequest request) {

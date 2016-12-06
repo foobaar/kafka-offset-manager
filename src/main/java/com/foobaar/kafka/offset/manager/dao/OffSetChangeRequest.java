@@ -7,6 +7,7 @@ public class OffSetChangeRequest {
   private String topic;
   private List<PartitionOffset> partitionOffsets;
   private String kafkaBroker;
+  private long timeStampInMillis;
 
   public String getConsumerGroupId() {
     return consumerGroupId;
@@ -35,4 +36,12 @@ public class OffSetChangeRequest {
   public String getKafkaBroker() { return kafkaBroker; }
 
   public void setKafkaBroker(String kafkaBroker) { this.kafkaBroker = kafkaBroker; }
+
+  public long getTimeStampInMillis() {
+    return timeStampInMillis;
+  }
+
+  public void setTimeStampInMillis(long timeStampInMillis) {
+    this.timeStampInMillis = timeStampInMillis;
+  }
 }

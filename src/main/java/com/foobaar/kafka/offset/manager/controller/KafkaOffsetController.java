@@ -29,4 +29,11 @@ public class KafkaOffsetController {
     return service.changeOffsetToEnd(req, position);
   }
 
+  @RequestMapping(value = "/time-based-offset", method = POST)
+  public String changeOffsetBasedOnTimeStamp(@RequestBody OffSetChangeRequest req) {
+    if (req.getTimeStampInMillis() < 0) {
+      return "timeStampinMillis cannot be negative";
+    }
+    return service.changeOffsetBasedOnTimeStamp(req);
+  }
 }
