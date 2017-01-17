@@ -4,6 +4,7 @@
 - You can move to a custom offset or move to the beginning or end of a topic
 
 ## Pre req
+- kafka version of 0.10.1.0 or greater
 - You need to make sure that all consumers to a particular consumer group should be stopped before starting this app.
 
 ## Installation
