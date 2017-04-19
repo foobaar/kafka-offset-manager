@@ -5,7 +5,7 @@
 
 ## Pre req
 - kafka version of 0.10.1.0 or greater
-- You need to make sure that all consumers to a particular consumer group should be stopped before starting this app.
+- You need to make sure that all consumers to a particular consumer group should be stopped before changing offsets.
 
 ## Installation
 
