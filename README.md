@@ -5,7 +5,7 @@
 
 ## Pre req
 - kafka version of 0.10.1.0 or greater
-- You need to make sure that all consumers to a particular consumer group should be stopped before changing offsets.
+- You need to make sure that all consumers that belong to a  consumer group should be stopped before changing offsets.
 
 ## Installation
 
@@ -45,7 +45,7 @@ POST BODY:
 }
 ```
 
-Moving the offsets to the earliest available offset for timestamp
+Moving the offsets to the earliest available offset for a given timestamp
 ```
 POST localhost:8082/kafka-offset-manager/time-based-offset
 POST BODY:
