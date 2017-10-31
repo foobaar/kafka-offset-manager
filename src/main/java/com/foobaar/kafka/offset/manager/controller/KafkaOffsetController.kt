@@ -15,23 +15,23 @@ class KafkaOffsetController {
     @Autowired private val service: KafkaOffsetService? = null
 
     @RequestMapping(value = "/custom-offset", method = arrayOf(POST))
-    fun changeOffset(@RequestBody req: OffSetChangeRequest): String {
-        return service!!.changeOffset(req)
+    fun changeOffset(@RequestBody req: OffSetChangeRequest): String? {
+        return service?.changeOffset(req)
     }
 
     @RequestMapping(value = "/boundary", method = arrayOf(POST))
     fun changeOffsetToEnd(@RequestBody req: OffSetChangeRequest,
-                          @RequestParam position: String): String {
+                          @RequestParam position: String): String? {
         return if (!"start".equals(position, ignoreCase = true) && !"end".equals(position, ignoreCase = true)) {
             "position has to be one of the following start|end"
-        } else service!!.changeOffsetToEnd(req, position)
+        } else service?.changeOffsetToEnd(req, position)
 
     }
 
     @RequestMapping(value = "/time-based-offset", method = arrayOf(POST))
-    fun changeOffsetBasedOnTimeStamp(@RequestBody req: OffSetChangeRequest): String {
+    fun changeOffsetBasedOnTimeStamp(@RequestBody req: OffSetChangeRequest): String? {
         return if (req.timeStampInMillis < 0) {
-            "timeStampinMillis cannot be negative"
-        } else service!!.changeOffsetBasedOnTimeStamp(req)
+            "timeStampInMillis cannot be negative"
+        } else service?.changeOffsetBasedOnTimeStamp(req)
     }
 }
