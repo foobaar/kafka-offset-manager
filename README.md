@@ -14,7 +14,7 @@
 ## Usage
 Setting Custom Offsets
 ```
-POST localhost:8082/kafka-offset-manager/custom-offset
+POST localhost:8080/custom-offset
 POST BODY:
 {
   "consumerGroupId" : "consumer1",
@@ -26,7 +26,7 @@ POST BODY:
 
 Moving the offsets to the earliest available offset:
 ```
-POST localhost:8082/kafka-offset-manager/boundary?position=start
+POST localhost:8080/boundary?position=start
 POST BODY:
 {
   "consumerGroupId" : "consumer1",
@@ -36,7 +36,7 @@ POST BODY:
 ```
 Moving the offsets to the latest available offset:
 ```
-POST localhost:8082/kafka-offset-manager/boundary?position=end
+POST localhost:8080/boundary?position=end
 POST BODY:
 {
   "consumerGroupId" : "consumer1",
@@ -47,7 +47,7 @@ POST BODY:
 
 Moving the offsets to the earliest available offset for a given timestamp
 ```
-POST localhost:8082/kafka-offset-manager/time-based-offset
+POST localhost:8080/time-based-offset
 POST BODY:
 {
   "consumerGroupId" : "consumer1",
