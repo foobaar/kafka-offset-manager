@@ -56,3 +56,8 @@ POST BODY:
   "timeStampInMillis": "23123123123"
 }
 ```
+
+## Docker
+
+The project contains a `docker-compose.yml` file, which configures containers for Kafka and ZooKeeper. See the
+following Github project for details on configuration: https://github.com/wurstmeister/kafka-docker
