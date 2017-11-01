@@ -24,7 +24,7 @@ class KafkaOffsetController {
                           @RequestParam position: String): String? {
         return if (!"start".equals(position, ignoreCase = true) && !"end".equals(position, ignoreCase = true)) {
             "position has to be one of the following start|end"
-        } else service?.changeOffsetToEnd(req, position)
+        } else service?.changeOffsetToEnd(req, position.toLowerCase())
 
     }
 
