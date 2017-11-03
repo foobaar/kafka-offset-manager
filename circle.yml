@@ -1,0 +1,16 @@
+general:
+  branches:
+    only:
+      - master
+
+machine:
+  java:
+    version: openjdk8
+
+compile:
+  override:
+    - ./gradlew clean build -x test
+
+general:
+  artifacts:
+    - build/reports/
